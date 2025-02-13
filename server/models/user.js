@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true }, 
     phoneNumber: { type: String, required: true },
     address: { type: String },
-    role: { type: String, default: "user" }, 
+    role: { type: String, enum: ["user", "admin"], default: "user" },
     paymentHistory: [paymentHistorySchema],
   },
   { timestamps: true }

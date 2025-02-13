@@ -2,7 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./routes/user.js";
-
 import cors from "cors";
 
 dotenv.config();
@@ -22,7 +21,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 
-// MongoDB Connection (Using MongoDB Atlas Cluster)
+// MongoDB Connection 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB ..."))

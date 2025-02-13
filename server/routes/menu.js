@@ -1,11 +1,22 @@
 import express from "express";
-import { createMenuItem, updateMenuItem, deleteMenuItem } from "../controllers/menuController.js";
-import { protect, admin } from "../middleware/authMiddleware.js";
+import {
+  addMenuItem,
+  getAllMenuItems,
+  getMenuItemById,
+  updateMenuItem,
+  deleteMenuItem
+} from "../controllers/menu.js";
+import { authenticateUser, authorizeAdmin } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", protect, admin, createMenuItem);
-router.put("/:id", protect, admin, updateMenuItem);
-router.delete("/:id", protect, admin, deleteMenuItem);
+// Public Routes
+router.get("/", getAllMenuItems);
+router.get("/:id", getMenuItemById);
+
+// Protected Routes (Admins Only)
+router.post("/", authenticateUser, authorizeAdmin, addMenuItem);
+router.put("/:id", authenticateUser, authorizeAdmin, updateMenuItem);
+router.delete("/:id", authenticateUser, authorizeAdmin, deleteMenuItem);
 
 export default router;
